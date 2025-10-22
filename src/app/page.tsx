@@ -17,7 +17,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-20">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Business Loan Calculators for Commercial Lending Brokers
+              Business Loan Calculators for Commercial Loan Brokers
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
               Get branded calculator pages that capture high-intent leads. Start
