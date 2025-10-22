@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "@prisma/client",
+    "@supabase/supabase-js",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ]
+}

@@ -1,0 +1,170 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Broker {
+  id                String    @id @default(cuid())
+  
+  // Link to Supabase auth.users
+  authUserId        String    @unique
+  
+  // Basic info
+  email             String    @unique
+  companyName       String
+  contactName       String
+  contactPhone      String?
+  
+  // Branding
+  subdomain         String    @unique
+  logoUrl           String?
+  primaryColor      String    @default("#1e3a8a")
+  secondaryColor    String    @default("#10b981")
+  
+  // Subscription
+  stripeCustomerId      String?   @unique
+  stripeSubscriptionId  String?   @unique
+  planTier              PlanTier  @default(STARTER)
+  subscriptionStatus    SubscriptionStatus @default(TRIALING)
+  trialEndsAt           DateTime?
+  subscriptionEndsAt    DateTime?
+  
+  // Settings
+  enabledCalculators String[]  @default(["sba-7a", "equipment", "working-capital"])
+  customDomain      String?
+  emailNotifications Boolean   @default(true)
+  
+  // Tracking
+  leadCount         Int       @default(0)
+  calculationCount  Int       @default(0)
+  lastLoginAt       DateTime?
+  
+  // Metadata
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  leads             Lead[]
+  calculations      Calculation[]
+  
+  @@index([authUserId])
+  @@index([subdomain])
+  @@index([email])
+}
+
+model Lead {
+  id              String    @id @default(cuid())
+  brokerId        String
+  broker          Broker    @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  
+  // Lead info
+  name            String?
+  email           String
+  phone           String?
+  businessName    String?
+  message         String?
+  
+  // Calculator context
+  calculatorType  String
+  
+  // Loan details
+  loanAmount      Float
+  loanTerm        Int
+  interestRate    Float?
+  downPayment     Float?    @default(0)
+  
+  // Calculated results
+  monthlyPayment  Float
+  totalInterest   Float
+  totalCost       Float
+  
+  // Tracking
+  utmSource       String?
+  utmMedium       String?
+  utmCampaign     String?
+  referrer        String?
+  ipAddress       String?
+  userAgent       String?
+  
+  // Status
+  status          LeadStatus @default(NEW)
+  contacted       Boolean   @default(false)
+  contactedAt     DateTime?
+  notes           String?   @db.Text
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@index([brokerId, createdAt(sort: Desc)])
+  @@index([email])
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+}
+
+model Calculation {
+  id              String    @id @default(cuid())
+  brokerId        String?
+  broker          Broker?   @relation(fields: [brokerId], references: [id], onDelete: SetNull)
+  
+  // Calculator info
+  calculatorType  String
+  
+  // Inputs
+  loanAmount      Float
+  loanTerm        Int
+  interestRate    Float
+  downPayment     Float?    @default(0)
+  
+  // Results
+  monthlyPayment  Float
+  totalInterest   Float
+  totalCost       Float
+  
+  // Anonymous tracking
+  sessionId       String?
+  ipAddress       String?
+  userAgent       String?
+  
+  // Conversion tracking
+  convertedToLead Boolean   @default(false)
+  leadId          String?
+  
+  createdAt       DateTime  @default(now())
+  
+  @@index([brokerId, createdAt(sort: Desc)])
+  @@index([calculatorType])
+  @@index([createdAt(sort: Desc)])
+}
+
+enum PlanTier {
+  STARTER
+  PROFESSIONAL
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
+  PAUSED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  CLOSED_WON
+  CLOSED_LOST
+  NURTURING
+}
+

@@ -1,0 +1,141 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import FranchiseCalculator from "@/components/calculators/FranchiseCalculator";
+import { useToast } from "@/components/ui/use-toast";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { BrokerBranding, LeadFormData, LoanResults } from "@/types";
+import Image from "next/image";
+
+interface Broker {
+  id: string;
+  companyName: string;
+  logoUrl?: string;
+  primaryColor: string;
+  secondaryColor: string;
+}
+
+export default function FranchisePage() {
+  const params = useParams();
+  const router = useRouter();
+  const { toast } = useToast();
+  const brokerId = params.brokerId as string;
+  const [broker, setBroker] = useState<Broker | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchBroker();
+  }, [brokerId]);
+
+  const fetchBroker = async () => {
+    try {
+      const res = await fetch(`/api/brokers/${brokerId}`);
+      if (!res.ok) throw new Error("Broker not found");
+      const data = await res.json();
+      setBroker(data.broker);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to load calculator",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLeadSubmit = async (
+    data: LeadFormData & { results: LoanResults }
+  ) => {
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brokerId: broker?.id,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          businessName: data.businessName,
+          message: data.message,
+          calculatorType: "franchise",
+          loanAmount: data.results.totalCost - data.results.totalInterest,
+          loanTerm: data.results.amortizationSchedule.length,
+          monthlyPayment: data.results.monthlyPayment,
+          totalInterest: data.results.totalInterest,
+          totalCost: data.results.totalCost,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to submit");
+      toast({
+        title: "Success!",
+        description: `${broker?.companyName} will contact you shortly.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit request. Please try again.",
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  if (!broker) return null;
+
+  const branding: BrokerBranding = {
+    companyName: broker.companyName,
+    logoUrl: broker.logoUrl,
+    primaryColor: broker.primaryColor,
+    secondaryColor: broker.secondaryColor,
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+      <header className="bg-white border-b">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.push(`/${brokerId}`)}
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            {broker.logoUrl ? (
+              <Image
+                src={broker.logoUrl}
+                alt={broker.companyName}
+                width={120}
+                height={40}
+                className="h-10 w-auto"
+              />
+            ) : (
+              <h1
+                className="text-2xl font-bold"
+                style={{ color: broker.primaryColor }}
+              >
+                {broker.companyName}
+              </h1>
+            )}
+          </div>
+        </div>
+      </header>
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <FranchiseCalculator
+          branding={branding}
+          brokerId={broker.id}
+          onLeadSubmit={handleLeadSubmit}
+        />
+      </div>
+    </div>
+  );
+}
