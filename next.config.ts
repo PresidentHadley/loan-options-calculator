@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
           has: [
             {
               type: "host",
-              value: "(?<brokerId>.*)\\.loanoptionscalculator\\.com",
+              value: "(?<brokerId>(?!www)[^.]+)\\.loanoptionscalculator\\.com",
             },
           ],
           destination: "/:brokerId/:path*",
