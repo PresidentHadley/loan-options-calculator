@@ -12,6 +12,30 @@ import { Calculator, Users, TrendingUp, Zap, Check } from "lucide-react";
 export default function HomePage() {
   return (
     <div className="min-h-screen">
+      {/* Header */}
+      <header className="bg-white border-b">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/">
+              <h1 className="text-xl font-bold text-blue-600">
+                Loan Options Calculator
+              </h1>
+            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/pricing">
+                <Button variant="ghost">Pricing</Button>
+              </Link>
+              <Link href="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link href="/signup">
+                <Button>Get Started</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
         <div className="container mx-auto px-4 py-20">
