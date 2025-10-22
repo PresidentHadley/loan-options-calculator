@@ -99,7 +99,7 @@ export default function PricingPage() {
                 <CardTitle className="text-2xl">Professional</CardTitle>
                 <CardDescription>For growing brokerages</CardDescription>
                 <div className="text-4xl font-bold mt-4">
-                  $99
+                  $59
                   <span className="text-lg font-normal text-muted-foreground">
                     /month
                   </span>
@@ -109,7 +109,7 @@ export default function PricingPage() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>All 6 calculators (all types)</span>
+                    <span>9 calculators (most popular types)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
@@ -121,11 +121,11 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>CSV export for leads</span>
+                    <span>Lead notifications via email</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>Custom branding options</span>
+                    <span>Lead status management</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
@@ -143,7 +143,7 @@ export default function PricingPage() {
                 <CardTitle className="text-2xl">Enterprise</CardTitle>
                 <CardDescription>For established businesses</CardDescription>
                 <div className="text-4xl font-bold mt-4">
-                  $199
+                  $69
                   <span className="text-lg font-normal text-muted-foreground">
                     /month
                   </span>
@@ -153,27 +153,27 @@ export default function PricingPage() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
+                    <span>All 18 calculators (every loan type)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-5 w-5 text-green-600 mt-0.5" />
                     <span>Everything in Professional</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>Custom domain support (yourdomain.com)</span>
+                    <span>Advanced analytics & conversion tracking</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>CRM integration via Zapier</span>
+                    <span>Custom branding (colors, logo, fonts)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>White-label option (remove our branding)</span>
+                    <span>CSV export for leads</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>Dedicated account manager</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-green-600 mt-0.5" />
-                    <span>API access</span>
+                    <span>Dedicated support</span>
                   </li>
                 </ul>
                 <Link href="/signup">
