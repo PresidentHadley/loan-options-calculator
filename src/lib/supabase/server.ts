@@ -1,32 +1,34 @@
 // src/lib/supabase/server.ts
 
-import { createServerClient } from "@supabase/supabase-js";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 export const createClient = async () => {
   const cookieStore = await cookies();
 
-  return createServerClient(
+  return createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string, options: any) {
-          try {
-            cookieStore.set(name, value, options);
-          } catch (error) {
-            // Handle the case where set is called from a Server Component
-          }
-        },
-        remove(name: string, options: any) {
-          try {
-            cookieStore.set(name, "", { ...options, maxAge: 0 });
-          } catch (error) {
-            // Handle the case where remove is called from a Server Component
-          }
+      auth: {
+        storage: {
+          getItem: (key: string) => {
+            return cookieStore.get(key)?.value ?? null;
+          },
+          setItem: (key: string, value: string) => {
+            try {
+              cookieStore.set(key, value);
+            } catch (error) {
+              // Handle the case where set is called from a Server Component
+            }
+          },
+          removeItem: (key: string) => {
+            try {
+              cookieStore.delete(key);
+            } catch (error) {
+              // Handle the case where remove is called from a Server Component
+            }
+          },
         },
       },
     }
