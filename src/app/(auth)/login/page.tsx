@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { login } from "../actions";
+import { login, loginAndRedirect } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 
 export default function LoginPage() {
@@ -31,19 +31,18 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      await login(formData.email, formData.password);
+      await loginAndRedirect(formData.email, formData.password);
+      // If successful, server action will redirect
       toast({
         title: "Success",
         description: "Logged in successfully",
       });
-      router.push("/dashboard");
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message || "Failed to login",
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };

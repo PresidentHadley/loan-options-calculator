@@ -76,6 +76,16 @@ export async function login(email: string, password: string) {
   }
 }
 
+export async function loginAndRedirect(email: string, password: string) {
+  try {
+    const result = await login(email, password);
+    redirect("/dashboard");
+  } catch (error) {
+    console.error("Login and redirect error:", error);
+    throw error;
+  }
+}
+
 export async function logout() {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
