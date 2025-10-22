@@ -168,10 +168,11 @@ export default function GenericCalculatorPage({
       {/* Calculator */}
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <Calculator
+          config={defaults}
+          type={calculatorType}
           branding={branding}
           brokerId={broker.id}
           onLeadSubmit={handleLeadSubmit}
-          calculatorDefaults={defaults}
         />
       </div>
     </div>
