@@ -12,7 +12,8 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "admin:enable-all": "tsx scripts/enable-all-calculators.ts"
+    "admin:enable-all": "tsx scripts/enable-all-calculators.ts",
+    "admin:clear-all": "tsx scripts/clear-all-data.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
