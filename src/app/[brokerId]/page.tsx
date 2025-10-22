@@ -21,6 +21,8 @@ interface Broker {
   contactName: string;
   email: string;
   contactPhone?: string;
+  websiteUrl?: string;
+  linkedinUrl?: string;
   logoUrl?: string;
   primaryColor: string;
   secondaryColor: string;
@@ -61,37 +63,31 @@ export default function BrokerCalculatorHub() {
     {
       id: "sba-7a",
       name: "SBA 7(a) Loan",
-      icon: "🏦",
       description: "General business loans up to $5M",
     },
     {
       id: "sba-504",
       name: "SBA 504 Loan",
-      icon: "🏢",
       description: "Real estate & equipment financing",
     },
     {
       id: "equipment",
       name: "Equipment Financing",
-      icon: "🚜",
       description: "Finance business equipment",
     },
     {
       id: "working-capital",
       name: "Working Capital",
-      icon: "💰",
       description: "Short-term business funding",
     },
     {
       id: "franchise",
       name: "Franchise Loan",
-      icon: "🍔",
       description: "Financing for franchise businesses",
     },
     {
       id: "business-acquisition",
       name: "Business Acquisition",
-      icon: "🤝",
       description: "Buy an existing business",
     },
   ];
@@ -157,18 +153,15 @@ export default function BrokerCalculatorHub() {
                 </h1>
               )}
             </div>
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:block text-sm text-muted-foreground">
-                Business Loan Calculators
-              </div>
-              <ContactBrokerButton
-                contactName={broker.contactName}
-                email={broker.email}
-                phone={broker.contactPhone}
-                companyName={broker.companyName}
-                primaryColor={broker.primaryColor}
-              />
-            </div>
+            <ContactBrokerButton
+              contactName={broker.contactName}
+              email={broker.email}
+              phone={broker.contactPhone}
+              websiteUrl={broker.websiteUrl}
+              linkedinUrl={broker.linkedinUrl}
+              companyName={broker.companyName}
+              primaryColor={broker.primaryColor}
+            />
           </div>
         </div>
       </header>
@@ -196,7 +189,6 @@ export default function BrokerCalculatorHub() {
               onClick={() => router.push(`/${brokerId}/${calc.id}`)}
             >
               <CardContent className="p-6">
-                <div className="text-4xl mb-4">{calc.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{calc.name}</h3>
                 <p className="text-muted-foreground text-sm">
                   {calc.description}

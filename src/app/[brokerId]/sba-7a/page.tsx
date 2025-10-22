@@ -16,6 +16,8 @@ interface Broker {
   contactName: string;
   email: string;
   contactPhone?: string;
+  websiteUrl?: string;
+  linkedinUrl?: string;
   logoUrl?: string;
   primaryColor: string;
   secondaryColor: string;
@@ -145,6 +147,8 @@ export default function SBA7aPage() {
               contactName={broker.contactName}
               email={broker.email}
               phone={broker.contactPhone}
+              websiteUrl={broker.websiteUrl}
+              linkedinUrl={broker.linkedinUrl}
               companyName={broker.companyName}
               primaryColor={broker.primaryColor}
             />

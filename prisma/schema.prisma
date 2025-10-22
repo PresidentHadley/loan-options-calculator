@@ -21,6 +21,8 @@ model Broker {
   companyName       String
   contactName       String
   contactPhone      String?
+  websiteUrl        String?
+  linkedinUrl       String?
   
   // Branding
   subdomain         String    @unique

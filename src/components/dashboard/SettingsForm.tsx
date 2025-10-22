@@ -20,6 +20,8 @@ interface Broker {
   contactName: string;
   email: string;
   contactPhone: string | null;
+  websiteUrl: string | null;
+  linkedinUrl: string | null;
   subdomain: string;
   logoUrl: string | null;
   primaryColor: string;
@@ -39,6 +41,8 @@ export function SettingsForm({ initialBroker }: SettingsFormProps) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     contactPhone: initialBroker.contactPhone || "",
+    websiteUrl: initialBroker.websiteUrl || "",
+    linkedinUrl: initialBroker.linkedinUrl || "",
     primaryColor: initialBroker.primaryColor,
     secondaryColor: initialBroker.secondaryColor,
   });
@@ -51,6 +55,8 @@ export function SettingsForm({ initialBroker }: SettingsFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contactPhone: formData.contactPhone || null,
+          websiteUrl: formData.websiteUrl || null,
+          linkedinUrl: formData.linkedinUrl || null,
           primaryColor: formData.primaryColor,
           secondaryColor: formData.secondaryColor,
         }),
@@ -113,6 +119,39 @@ export function SettingsForm({ initialBroker }: SettingsFormProps) {
               />
               <p className="text-xs text-muted-foreground">
                 Displayed on your calculator pages for client contact
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="website">Website</Label>
+              <Input
+                id="website"
+                type="url"
+                placeholder="https://yourcompany.com"
+                value={formData.websiteUrl}
+                onChange={(e) =>
+                  setFormData({ ...formData, websiteUrl: e.target.value })
+                }
+              />
+              <p className="text-xs text-muted-foreground">
+                Link to your company website
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="linkedin">LinkedIn</Label>
+              <Input
+                id="linkedin"
+                type="url"
+                placeholder="https://linkedin.com/in/yourprofile"
+                value={formData.linkedinUrl}
+                onChange={(e) =>
+                  setFormData({ ...formData, linkedinUrl: e.target.value })
+                }
+              />
+              <p className="text-xs text-muted-foreground">
+                Your LinkedIn profile or company page
               </p>
             </div>
           </div>

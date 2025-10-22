@@ -14,7 +14,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { contactPhone, primaryColor, secondaryColor } = body;
+    const { contactPhone, websiteUrl, linkedinUrl, primaryColor, secondaryColor } = body;
 
     // Validate colors
     const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
@@ -35,6 +35,8 @@ export async function PATCH(req: NextRequest) {
       where: { authUserId: user.id },
       data: {
         contactPhone: contactPhone || null,
+        websiteUrl: websiteUrl || null,
+        linkedinUrl: linkedinUrl || null,
         primaryColor: primaryColor || undefined,
         secondaryColor: secondaryColor || undefined,
         updatedAt: new Date(),
