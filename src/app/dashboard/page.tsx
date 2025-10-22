@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Calculator, Users, TrendingUp, Settings } from "lucide-react";
+import { CopyButton } from "@/components/dashboard/CopyButton";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -130,16 +131,10 @@ export default async function DashboardPage() {
                   value={`https://${broker.subdomain}.loanoptionscalculator.com`}
                   className="flex-1 px-3 py-2 border rounded-md text-sm"
                 />
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `https://${broker.subdomain}.loanoptionscalculator.com`
-                    );
-                  }}
-                >
-                  Copy
-                </Button>
+                <CopyButton 
+                  text={`https://${broker.subdomain}.loanoptionscalculator.com`}
+                  label="Copy"
+                />
               </div>
               <Link href={`/${broker.subdomain}`} target="_blank">
                 <Button variant="outline" className="w-full mt-4">
@@ -217,15 +212,10 @@ export default async function DashboardPage() {
                 <p className="text-muted-foreground mb-4">
                   Share your calculator page to start receiving leads
                 </p>
-                <Button
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `https://${broker.subdomain}.loanoptionscalculator.com`
-                    );
-                  }}
-                >
-                  Copy Calculator Link
-                </Button>
+                <CopyButton
+                  text={`https://${broker.subdomain}.loanoptionscalculator.com`}
+                  label="Copy Calculator Link"
+                />
               </div>
             )}
           </CardContent>
