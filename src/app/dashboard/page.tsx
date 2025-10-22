@@ -37,12 +37,29 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
+  // Calculate dynamic stats
+  const totalLeads = await prisma.lead.count({
+    where: { brokerId: broker.id },
+  });
+
+  const totalCalculations = await prisma.calculation.count({
+    where: { brokerId: broker.id },
+  });
+
+  const newLeads = await prisma.lead.count({
+    where: {
+      brokerId: broker.id,
+      status: "NEW",
+    },
+  });
+
   const stats = {
-    totalLeads: broker.leadCount,
-    totalCalculations: broker.calculationCount,
+    totalLeads,
+    totalCalculations,
+    newLeads,
     conversionRate:
-      broker.calculationCount > 0
-        ? ((broker.leadCount / broker.calculationCount) * 100).toFixed(1)
+      totalCalculations > 0
+        ? ((totalLeads / totalCalculations) * 100).toFixed(1)
         : "0.0",
   };
 
@@ -67,7 +84,7 @@ export default async function DashboardPage() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
@@ -76,7 +93,20 @@ export default async function DashboardPage() {
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalLeads}</div>
               <p className="text-xs text-muted-foreground">
-                Captured from calculators
+                All time captures
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">New Leads</CardTitle>
+              <Users className="h-4 w-4 text-blue-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">{stats.newLeads}</div>
+              <p className="text-xs text-muted-foreground">
+                Need follow-up
               </p>
             </CardContent>
           </Card>
@@ -84,7 +114,7 @@ export default async function DashboardPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Calculations
+                Calculator Views
               </CardTitle>
               <Calculator className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -93,7 +123,7 @@ export default async function DashboardPage() {
                 {stats.totalCalculations}
               </div>
               <p className="text-xs text-muted-foreground">
-                Total calculator uses
+                Anonymous + leads
               </p>
             </CardContent>
           </Card>
@@ -108,7 +138,7 @@ export default async function DashboardPage() {
             <CardContent>
               <div className="text-2xl font-bold">{stats.conversionRate}%</div>
               <p className="text-xs text-muted-foreground">
-                Calculations to leads
+                Views to leads
               </p>
             </CardContent>
           </Card>

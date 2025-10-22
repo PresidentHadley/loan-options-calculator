@@ -31,6 +31,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Check for duplicate leads (same email within 24 hours)
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const existingLead = await prisma.lead.findFirst({
+      where: {
+        brokerId,
+        email,
+        createdAt: {
+          gte: twentyFourHoursAgo,
+        },
+      },
+    });
+
+    if (existingLead) {
+      return NextResponse.json(
+        {
+          error:
+            "You've already submitted a request recently. We'll be in touch soon!",
+        },
+        { status: 400 }
+      );
+    }
+
     // Create lead
     const lead = await prisma.lead.create({
       data: {

@@ -62,6 +62,8 @@ export default function Calculator({
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const [sessionId] = useState(() => Math.random().toString(36).substring(7));
+  const [hasTrackedCalculation, setHasTrackedCalculation] = useState(false);
 
   useEffect(() => {
     calculate();
@@ -76,8 +78,38 @@ export default function Calculator({
         downPayment,
       });
       setResults(result);
+
+      // Track calculation (only once per session to avoid spam)
+      if (brokerId && !hasTrackedCalculation) {
+        trackCalculation(result);
+        setHasTrackedCalculation(true);
+      }
     } catch (error) {
       console.error("Calculation error:", error);
+    }
+  };
+
+  const trackCalculation = async (result: LoanResults) => {
+    try {
+      await fetch("/api/calculations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brokerId,
+          calculatorType: type,
+          loanAmount,
+          loanTerm,
+          interestRate,
+          downPayment,
+          monthlyPayment: result.monthlyPayment,
+          totalInterest: result.totalInterest,
+          totalCost: result.totalCost,
+          sessionId,
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to track calculation:", error);
+      // Don't show error to user, this is background tracking
     }
   };
 
