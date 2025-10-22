@@ -172,14 +172,14 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-2xl">Professional</CardTitle>
                 <div className="text-4xl font-bold mt-4">
-                  $99<span className="text-lg font-normal">/mo</span>
+                  $59<span className="text-lg font-normal">/mo</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
-                    <span>All 6 calculators</span>
+                    <span>9 calculators</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
@@ -187,7 +187,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
-                    <span>CSV export</span>
+                    <span>Lead notifications</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
@@ -204,22 +204,22 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-2xl">Enterprise</CardTitle>
                 <div className="text-4xl font-bold mt-4">
-                  $199<span className="text-lg font-normal">/mo</span>
+                  $69<span className="text-lg font-normal">/mo</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
+                    <span>All 18 calculators</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-green-600" />
                     <span>Everything in Pro</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
-                    <span>Custom domain</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-green-600" />
-                    <span>White-label option</span>
+                    <span>Custom branding</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-600" />
