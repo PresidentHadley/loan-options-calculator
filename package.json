@@ -11,7 +11,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "admin:enable-all": "tsx scripts/enable-all-calculators.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -52,6 +53,7 @@
     "postcss": "^8",
     "prisma": "^5.11.0",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }
