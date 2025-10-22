@@ -90,6 +90,66 @@ export default function BrokerCalculatorHub() {
       name: "Business Acquisition",
       description: "Buy an existing business",
     },
+    {
+      id: "commercial-property",
+      name: "Commercial Property",
+      description: "Loans for commercial real estate",
+    },
+    {
+      id: "multi-family",
+      name: "Multi-Family Property",
+      description: "Apartment & multi-family financing",
+    },
+    {
+      id: "office-retail",
+      name: "Office/Retail Space",
+      description: "Office & retail property loans",
+    },
+    {
+      id: "line-of-credit",
+      name: "Line of Credit",
+      description: "Flexible revolving credit lines",
+    },
+    {
+      id: "invoice-financing",
+      name: "Invoice Financing",
+      description: "Convert invoices to immediate cash",
+    },
+    {
+      id: "merchant-cash-advance",
+      name: "Merchant Cash Advance",
+      description: "Fast funding based on sales",
+    },
+    {
+      id: "construction-loan",
+      name: "Construction Loan",
+      description: "Finance building projects",
+    },
+    {
+      id: "bridge-loan",
+      name: "Bridge Loan",
+      description: "Short-term financing solution",
+    },
+    {
+      id: "land-loan",
+      name: "Land Loan",
+      description: "Purchase commercial land",
+    },
+    {
+      id: "term-loan",
+      name: "Term Loan",
+      description: "Fixed-rate business financing",
+    },
+    {
+      id: "asset-based",
+      name: "Asset-Based Lending",
+      description: "Loans secured by business assets",
+    },
+    {
+      id: "inventory-financing",
+      name: "Inventory Financing",
+      description: "Finance your inventory purchases",
+    },
   ];
 
   if (loading) {
