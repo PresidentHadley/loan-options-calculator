@@ -19,9 +19,9 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { calculateLoan, type CalculatorDefaults } from "@/lib/calculations";
+import { calculateLoan } from "@/lib/calculations";
 import { formatCurrency, formatCurrencyDetailed } from "@/lib/utils";
-import type { LoanResults, BrokerBranding, LeadFormData } from "@/types";
+import type { LoanResults, BrokerBranding, LeadFormData, CalculatorDefaults } from "@/types";
 import {
   AreaChart,
   Area,
