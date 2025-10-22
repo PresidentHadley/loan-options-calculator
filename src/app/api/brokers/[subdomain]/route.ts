@@ -14,6 +14,8 @@ export async function GET(
         id: true,
         companyName: true,
         contactName: true,
+        email: true,
+        contactPhone: true,
         logoUrl: true,
         primaryColor: true,
         secondaryColor: true,

@@ -8,10 +8,14 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { BrokerBranding, LeadFormData, LoanResults } from "@/types";
 import Image from "next/image";
+import { ContactBrokerButton } from "@/components/calculators/ContactBrokerButton";
 
 interface Broker {
   id: string;
   companyName: string;
+  contactName: string;
+  email: string;
+  contactPhone?: string;
   logoUrl?: string;
   primaryColor: string;
   secondaryColor: string;
@@ -102,30 +106,39 @@ export default function SBA504Page() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       <header className="bg-white border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => router.push(`/${brokerId}`)}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            {broker.logoUrl ? (
-              <Image
-                src={broker.logoUrl}
-                alt={broker.companyName}
-                width={120}
-                height={40}
-                className="h-10 w-auto"
-              />
-            ) : (
-              <h1
-                className="text-2xl font-bold"
-                style={{ color: broker.primaryColor }}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.push(`/${brokerId}`)}
               >
-                {broker.companyName}
-              </h1>
-            )}
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+              {broker.logoUrl ? (
+                <Image
+                  src={broker.logoUrl}
+                  alt={broker.companyName}
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              ) : (
+                <h1
+                  className="text-2xl font-bold"
+                  style={{ color: broker.primaryColor }}
+                >
+                  {broker.companyName}
+                </h1>
+              )}
+            </div>
+            <ContactBrokerButton
+              contactName={broker.contactName}
+              email={broker.email}
+              phone={broker.contactPhone}
+              companyName={broker.companyName}
+              primaryColor={broker.primaryColor}
+            />
           </div>
         </div>
       </header>

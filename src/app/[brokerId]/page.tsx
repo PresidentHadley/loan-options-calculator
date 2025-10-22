@@ -13,10 +13,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Calculator as CalculatorIcon } from "lucide-react";
 import type { BrokerBranding, LeadFormData, LoanResults } from "@/types";
 import Image from "next/image";
+import { ContactBrokerButton } from "@/components/calculators/ContactBrokerButton";
 
 interface Broker {
   id: string;
   companyName: string;
+  contactName: string;
+  email: string;
+  contactPhone?: string;
   logoUrl?: string;
   primaryColor: string;
   secondaryColor: string;
@@ -153,8 +157,17 @@ export default function BrokerCalculatorHub() {
                 </h1>
               )}
             </div>
-            <div className="text-sm text-muted-foreground">
-              Business Loan Calculators
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:block text-sm text-muted-foreground">
+                Business Loan Calculators
+              </div>
+              <ContactBrokerButton
+                contactName={broker.contactName}
+                email={broker.email}
+                phone={broker.contactPhone}
+                companyName={broker.companyName}
+                primaryColor={broker.primaryColor}
+              />
             </div>
           </div>
         </div>
